@@ -7,6 +7,8 @@ import 'package:ticket_box/src/pages/login_gmail/views/login_email_page.dart';
 import 'package:ticket_box/src/pages/login_phone/bindings/login_phone_binding.dart';
 import 'package:ticket_box/src/pages/login_phone/views/login_phone_screen.dart';
 import 'package:ticket_box/src/pages/login_phone/views/verify_phone_screen.dart';
+import 'package:ticket_box/src/pages/notifications/bindings/notifications_binding.dart';
+import 'package:ticket_box/src/pages/notifications/views/notifications_page.dart';
 import 'package:ticket_box/src/pages/profile/bindings/profile_binding.dart';
 import 'package:ticket_box/src/pages/profile/views/profile_page.dart';
 import 'package:ticket_box/src/pages/profile_detail/bindings/profile_detail_binding.dart';
@@ -26,6 +28,11 @@ class AppPages {
       name: Routes.login,
       page: () => LoginEmailPage(),
       binding: LoginEmailBinding(),
+    ),
+    GetPage(
+      name: Routes.notifications,
+      page: () => NotificationsPage(),
+      binding: NotificationsBinding(),
     ),
     GetPage(
       name: Routes.loginPhone,

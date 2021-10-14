@@ -37,14 +37,12 @@ class LoginEmailController extends GetxController {
       UserCredential result = await FirebaseAuth.instance.signInWithCredential(credential);
       print('hello: '+ result.user.toString());
       if (result.user != null) {
-        BotToast.showText(text: "Sign In Successfull");
-        // sharedStates.account = result.user as Account?;
+        BotToast.showText(text: "Đăng nhập thành công");
         Get.toNamed(Routes.home);
       }
     } catch (e) {
-      // log("Lỗi: " + e.toString());
-      print(e.toString());
-      BotToast.showText(text: "Sign In Failed");
+      log("Lỗi: " + e.toString());
+      BotToast.showText(text: "Đăng nhập thất bại");
     }
     BotToast.closeAllLoading();
   }
@@ -56,10 +54,10 @@ class LoginEmailController extends GetxController {
         // lưu DB and User here
 
         BotToast.showText(
-            text: "Sign In Successfull",
+            text: "Đăng nhập thành công",
             textStyle: TextStyle(fontSize: 16),
             duration: const Duration(seconds: 5));
-        //Get.toNamed(Routes.home);
+        Get.toNamed(Routes.home);
       } else {
         BotToast.showText(
             text: "Required Information!",
@@ -68,7 +66,6 @@ class LoginEmailController extends GetxController {
       }
     } catch (e) {
       log("Lỗi: " + e.toString());
-
       BotToast.showText(text: "Your phone or password wrong ! Login In Failed");
     }
     BotToast.closeAllLoading();

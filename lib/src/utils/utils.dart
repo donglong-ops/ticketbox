@@ -13,8 +13,6 @@ class Utils {
     return Image(
       fit: fit,
       width: width,
-      // loadingBuilder: (context, child, loadingProgress) =>
-      //     CircularProgressIndicator(),
       image: NetworkImage(url),
       errorBuilder: (context, error, stackTrace) =>
           Image.asset(Constants.imageErr),

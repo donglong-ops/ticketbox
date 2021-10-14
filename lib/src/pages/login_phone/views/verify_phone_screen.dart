@@ -1,5 +1,4 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:ticket_box/src/common/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,8 +15,7 @@ class VerifyPhoneScreen extends GetView<LoginPhoneController> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
-          //backgroundColor: Color(0xff2AD4D3),
-          backgroundColor: Colors.white,
+          backgroundColor: Color(0xff2AD4D3),
           title: Text(
             'Sign Up',
             style: TextStyle(color: Colors.black),
@@ -55,12 +53,6 @@ class VerifyPhoneScreen extends GetView<LoginPhoneController> {
                   child: PinCodeTextField(
                     appContext: context,
                     length: 6,
-                    //obscureText: true,
-                    //obscuringCharacter: '*',
-                    // obscuringWidget: FlutterLogo(
-                    //   size: 24,
-                    // )
-
                     blinkWhenObscuring: true,
                     animationType: AnimationType.fade,
                     pinTheme: PinTheme(
@@ -72,13 +64,12 @@ class VerifyPhoneScreen extends GetView<LoginPhoneController> {
                       inactiveFillColor: Colors.white,
                       fieldHeight: 50,
                       fieldWidth: 40,
-                      activeFillColor: Colors.orange[50],
+                      activeFillColor: Colors.blue[50],
                       inactiveColor: Colors.white,
                     ),
                     cursorColor: Colors.black,
                     animationDuration: Duration(milliseconds: 300),
                     enableActiveFill: true,
-                    // controller: textEditingController,
                     keyboardType: TextInputType.number,
                     boxShadows: [
                       BoxShadow(
@@ -107,8 +98,7 @@ class VerifyPhoneScreen extends GetView<LoginPhoneController> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            controller
-                                .sendCodeToPhone(controller.phoneNumber.value);
+                            controller.sendCodeToPhone(controller.phoneNumber.value);
                             BotToast.showText(
                                 text: "Verifition Code Resend Successfull",
                                 duration: const Duration(seconds: 5));
@@ -117,29 +107,6 @@ class VerifyPhoneScreen extends GetView<LoginPhoneController> {
                             'Resend',
                             style: TextStyle(fontSize: 18, color: Colors.blue),
                           ),
-                        ),
-                      ],
-                    )),
-                Container(
-                    width: screenSize.width * 0.9,
-                    margin: EdgeInsets.only(top: 20),
-                    alignment: Alignment.topLeft,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "What do I do if I can't receive the SMS verification code ?  ",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "- Click on Resend button that we would send you a new SMS verification code.",
-                          style: TextStyle(fontSize: 15, color: Colors.black),
                         ),
                       ],
                     )),

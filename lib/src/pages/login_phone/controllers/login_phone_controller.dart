@@ -26,6 +26,7 @@ class LoginPhoneController extends GetxController {
   }
 
   void sendCodeToPhone(String phone) async {
+    BotToast.showLoading();
     await _auth.verifyPhoneNumber(
       phoneNumber: '+84' + phone,
       verificationCompleted: (phoneAuthCredential) {

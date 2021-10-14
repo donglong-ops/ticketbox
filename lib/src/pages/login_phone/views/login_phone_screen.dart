@@ -16,8 +16,7 @@ class LoginPhonePage extends GetView<LoginPhoneController> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
-          // backgroundColor: Color(0xff2AD4D3),
-          backgroundColor: Colors.white,
+          backgroundColor: Color(0xff2AD4D3),
           title: Text(
             'Sign Up',
             style: TextStyle(color: Colors.black),
@@ -43,7 +42,7 @@ class LoginPhonePage extends GetView<LoginPhoneController> {
                   margin: EdgeInsets.only(top: 30, right: 20, left: 20),
                   child: Text(
                     'Enter mobile number to receive a verification code for free.',
-                    style: TextStyle(color: Colors.black87, fontSize: 16),
+                    style: TextStyle(color: Colors.black87, fontSize: 18),
                   )),
               Container(
                 margin: EdgeInsets.only(top: 30, right: 20, left: 20),
@@ -76,14 +75,14 @@ class LoginPhonePage extends GetView<LoginPhoneController> {
                     vertical: 13,
                   ),
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: AppColors.primary),
+                    style: ElevatedButton.styleFrom(primary: Color(0xff2AD4D3)),
                     onPressed: () {
                       controller.sendCodeToPhone(phoneController.text);
                     },
                     child: Text(
                       "Send Verification Code",
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+                      style: TextStyle(color: Colors.black, fontSize: 18),
                     ),
                   ),
                 ),

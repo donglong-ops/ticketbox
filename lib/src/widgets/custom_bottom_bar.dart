@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ticket_box/src/routes/routes.dart';
 import 'package:ticket_box/src/services/global_states/shared_states.dart';
@@ -37,7 +38,16 @@ final items = [
     icon: Icon(Icons.home),
     route: Routes.home,
   ),
-
+  BottomItem(
+    text: 'Accounts',
+    icon: Icon(Icons.manage_accounts),
+    route: Routes.home,
+  ),
+  BottomItem(
+    text: 'Notification',
+    icon: Icon(FontAwesomeIcons.bell),
+    route: Routes.notifications,
+  ),
   BottomItem(
     text: 'Profile',
     icon: Icon(Icons.person),

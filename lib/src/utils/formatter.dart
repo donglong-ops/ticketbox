@@ -24,8 +24,7 @@ class Formatter {
     return formatter.format(price) + ' $currency';
   }
 
-  static String amount(double? amount, String? discountType,
-      [String currency = "VNĐ"]) {
+  static String amount(double? amount, String? discountType, [String currency = "VNĐ"]) {
     if (amount == null || discountType == null) {
       return '';
     }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import 'package:ticket_box/src/services/global_states/shared_states.dart';
 
 class ProfileDetailPage extends GetView<ProfileDetailController> {
   final SharedStates sharedData = Get.find();
+  final user = FirebaseAuth.instance.currentUser!;
   bool showPassword = false;
 
   @override
@@ -15,7 +17,7 @@ class ProfileDetailPage extends GetView<ProfileDetailController> {
     final Account? userInfo = sharedData.account;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Color(0xff2AD4D3),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(
@@ -64,7 +66,7 @@ class ProfileDetailPage extends GetView<ProfileDetailController> {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: NetworkImage(userInfo!.imageUrl.toString())
+                              image: NetworkImage(user.photoURL!)
                           )),
                     ),
                     Positioned(
@@ -92,28 +94,24 @@ class ProfileDetailPage extends GetView<ProfileDetailController> {
               SizedBox(
                 height: 35,
               ),
-              buildTextField("Name", userInfo.name.toString()),
-              buildTextField("Email", userInfo.email.toString()),
-              buildTextField("Phone", userInfo.phone.toString()),
+              buildTextField("Name", user.displayName.toString()),
+              buildTextField("Email", user.email.toString()),
+              buildTextField("Phone", user.phoneNumber.toString()),
               SizedBox(
                 height: 35,
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.9,
+                width: MediaQuery.of(context).size.width * 0.6,
                 height: 50,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 63,
                     vertical: 13,
                   ),
-                  child: SizedBox(
-                    width: 167,
-                    height: 19,
-                    child: Text(
-                      "Save",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
+                  child: Text(
+                    "Save",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
                 decoration: BoxDecoration(

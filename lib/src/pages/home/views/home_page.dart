@@ -10,17 +10,17 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xff2AD4D3),
         centerTitle: true,
         title: Text(
           'Home',
           style: TextStyle(color: Colors.black38),
         ),
         elevation: 4,
-        backgroundColor: Colors.white,
       ),
       body: Center(
         child: DialogButton(
-            child: Text('Hello'),
+            child: Text('Click Here'),
             onPressed: (){
               _onAlertWithCustomContentPressed(context);
             }

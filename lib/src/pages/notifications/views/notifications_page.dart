@@ -12,7 +12,7 @@ class NotificationsPage extends GetView<NotificationsController> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff2AD4D3),
         elevation: 1,
         title: Text(
           'Thông báo',
@@ -25,7 +25,7 @@ class NotificationsPage extends GetView<NotificationsController> {
             context: context,
             type: AlertType.warning,
             title: "Thông báo",
-            desc: "Ưu đãi của bạn sắp sửa hết hạn.",
+            desc: "Tài khoản của bạn sắp hết!",
             buttons: [
               DialogButton(
                 child: Text(
@@ -74,7 +74,7 @@ class NotificationsPage extends GetView<NotificationsController> {
                     children: [
                       Container(
                         child: Text(
-                          'Bạn có một mã ưu đãi sắp hết hạn!',
+                          'Bạn có một khoản nợ sắp đết hạn!',
                           style: TextStyle(fontSize: 16),
                         ),
                       ),
