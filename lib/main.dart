@@ -33,22 +33,7 @@ class MyApp extends StatelessWidget {
     // https://devera.vn/blog/our-blog-1/post/flutter-va-nhung-cau-hoi-thuong-gap-khi-phong-van-35
 
     // Cách điều hướng màn hình
-    //cách 1:
-    return MaterialApp(
-      initialRoute: '/loin',
-      routes: <String, WidgetBuilder>{
-        '/home': (context) =>HomePage(),
-        '/login': (context) =>LoginEmailPage(),
-        '/loginPhone': (context) =>LoginPhonePage(),
-        '/phoneVerify': (context) =>VerifyPhoneScreen(),
-        '/profile': (context) =>ProfilePage(),
-        '/profileDetail': (context) =>ProfileDetailPage(),
-        '/updateProfile': (context) =>UpdateProfilePage(),
-        '/notifications': (context) =>NotificationsPage(),
-      },
-    );
-
-    //cách 2: (khuên dùng :V)
+    //cách 1: (khuên dùng :V)
     return GetMaterialApp(
       title: Strings.appName,
       builder: BotToastInit(),
@@ -58,5 +43,27 @@ class MyApp extends StatelessWidget {
       initialRoute: Routes.login,
       getPages: AppPages.routes,
     );
+
+    // Cách này chuyển trang đơn giản hơn:
+    // Get.toNamed(Routes.home);
+    // Get.toNamed(Routes.login);
+    // Get.toNamed(Routes.profile);
+
+    //cách 2:
+    return MaterialApp(
+      initialRoute: '/loin',
+      routes: <String, WidgetBuilder>{
+        '/home': (context) =>HomePage(), // chuyển trang:  Navigator.pushNamed(context, '/home');
+        '/login': (context) =>LoginEmailPage(),// Navigator.pushNamed(context, '/login');
+        '/loginPhone': (context) =>LoginPhonePage(), // Navigator.pushNamed(context, '/loginPhone');
+        '/phoneVerify': (context) =>VerifyPhoneScreen(),
+        '/profile': (context) =>ProfilePage(),
+        '/profileDetail': (context) =>ProfileDetailPage(),
+        '/updateProfile': (context) =>UpdateProfilePage(),
+        '/notifications': (context) =>NotificationsPage(),
+      },
+    );
+    // thì chuyển trang sẽ dùng:
+    //Navigator.pushNamed(context, '/loginPhone');
   }
 }

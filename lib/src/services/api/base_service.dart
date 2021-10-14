@@ -91,21 +91,6 @@ abstract class BaseService<T> {
     return false;
   }
 
-  // /// Put an instance with [body] and a file path [filePath]
-  // Future<T?> putWithOneFileBase(
-  //   Map<String, dynamic> body,
-  //   String filePath,
-  // ) async {
-  //   Response res = await _apiHelper.putOneWithOneFile(
-  //     endpoint(),
-  //     body,
-  //     FileUploadUtils.convertToMultipart(filePath),
-  //   );
-  //   if (res.statusCode == HttpStatus.noContent) {
-  //     return fromJson(res.body);
-  //   }
-  // }
-
   /// Put an instance with [body] and a file path [filePath]
   Future<bool> putWithOneFileBase(
       Map<String, dynamic> body, String filePath, int id,

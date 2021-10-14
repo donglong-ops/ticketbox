@@ -28,16 +28,13 @@ dependencies:
   get:
 
   image_picker: ^0.8.0+3
-  # Add alert widgets
   rflutter_alert: ^2.0.2
   font_awesome_flutter: ^9.1.0
   salomon_bottom_bar: ^3.1.0
   bot_toast: ^4.0.1
-  # Login with google
   google_sign_in: ^5.0.7
   firebase_auth: ^3.0.1
   firebase_core: ^1.4.0
-  # UI for phone verify
   pin_code_fields: ^7.3.0
 
 dev_dependencies:
