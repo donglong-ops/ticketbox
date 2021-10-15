@@ -195,7 +195,7 @@ class UpdateProfilePage extends GetView<UpdateProfileController> {
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:
-                        MaterialStateProperty.all(AppColors.primary),
+                        MaterialStateProperty.all(Color(0xffFF6F66)),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),

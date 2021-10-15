@@ -1,34 +1,46 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:ticket_box/src/models/account.dart';
+import 'package:ticket_box/src/models/event.dart';
+import 'package:ticket_box/src/services/api/event_service.dart';
 import 'package:ticket_box/src/services/global_states/shared_states.dart';
 
 
 class HomeController extends GetxController {
   SharedStates states = Get.find();
+
   final showSlider = true.obs;
-  final buildingId = 0.obs;
-  final buildingName = "".obs;
-  final listAccount = [Account].obs;
-  final buildings = [].obs;
+  final isSearching = false.obs;
+
+  IEventService eventService = Get.find();
+  final listEvents = <Event>[].obs;
+  Future<void> getEvents() async {
+    listEvents.value =  (await eventService.getEvents());
+  }
+
+  final listSearchEvents = <Event>[].obs;
+  Future<void> searchEvents(List<Event> list, String keySearch) async {
+    if (keySearch.isEmpty) {
+      listEvents.clear();
+      return;
+    }
+    List<Event>listSearch = [];
+    for(int i = 0; i < list.length; i++){
+      if(list[i].eventName!.contains(keySearch)){
+        listSearch.add(list[i]);
+      }
+    }
+
+    if (listSearch.length > 0 || listSearch.isEmpty) {
+      print('dữ liệu có tồn tại =)): ' + listSearch.length.toString());
+      isSearching.value = true;
+      listSearchEvents.value = listSearch;
+      Timer(Duration(seconds: 1), () => isSearching.value = false);
+    }
+  }
 
   @override
   void onInit() {
     super.onInit();
-
+    getEvents();
   }
-
-
-
 }
-
-// final categories = [
-//   ProductCategory(name: 'Cà phê', imageUrl: 'assets/images/icon_coffee.png'),
-//   ProductCategory(name: 'Trà sữa', imageUrl: 'assets/images/icon_milktea.png'),
-//   ProductCategory(name: 'Mua sắm', imageUrl: 'assets/images/icon_shopping.png'),
-//   ProductCategory(
-//       name: 'Nhà hàng', imageUrl: 'assets/images/icon_restaurant.png'),
-//   ProductCategory(name: 'Xem phim', imageUrl: 'assets/images/icon_cinema.png'),
-// ];

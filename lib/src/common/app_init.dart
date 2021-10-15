@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ticket_box/src/data/api_helper.dart';
 import 'package:ticket_box/src/services/api/account_service.dart';
+import 'package:ticket_box/src/services/api/event_service.dart';
 import 'package:ticket_box/src/services/global_states/shared_states.dart';
 import 'package:ticket_box/src/widgets/custom_bottom_bar.dart';
 
@@ -18,8 +19,7 @@ class AppInit {
     // Shared states between widget
     Get.lazyPut<SharedStates>(() => SharedStates(), fenix: true);
     // Bottom bar
-    Get.lazyPut<CustomBottombarController>(
-      () => CustomBottombarController(), fenix: true,
+    Get.lazyPut<CustomBottombarController>(() => CustomBottombarController(), fenix: true,
     );
   }
 
@@ -27,7 +27,11 @@ class AppInit {
   static void initApiServices() {
     // Use for calling api
     Get.lazyPut<IApiHelper>(() => ApiHelper(), fenix: true);
+
     // Calling api at account service
     Get.lazyPut<IAccountService>(() => AccountService(), fenix: true);
+
+    // Calling api at event service
+    Get.lazyPut<IEventService>(() => EventService(), fenix: true);
   }
 }

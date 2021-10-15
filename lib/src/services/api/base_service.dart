@@ -34,9 +34,11 @@ abstract class BaseService<T> {
   /// Get list instances from API with [query]
   Future<List<T>> getAllBase(Map<String, dynamic> query) async {
     Response res = await _apiHelper.getAll(endpoint(), query: query);
-    Paging<T> paging = Paging.fromJson(res.body);
-    paging.convertToList(fromJson);
-    return paging.content ?? [];
+    List<T>? content = res.body?.map<T>((x) => fromJson(x)).toList();
+    if(content!.isEmpty || (content.length < 0)){
+      content = [];
+    }
+    return content;
   }
 
   /// Post an instance with [body]
@@ -90,6 +92,21 @@ abstract class BaseService<T> {
     }
     return false;
   }
+
+  // /// Put an instance with [body] and a file path [filePath]
+  // Future<T?> putWithOneFileBase(
+  //   Map<String, dynamic> body,
+  //   String filePath,
+  // ) async {
+  //   Response res = await _apiHelper.putOneWithOneFile(
+  //     endpoint(),
+  //     body,
+  //     FileUploadUtils.convertToMultipart(filePath),
+  //   );
+  //   if (res.statusCode == HttpStatus.noContent) {
+  //     return fromJson(res.body);
+  //   }
+  // }
 
   /// Put an instance with [body] and a file path [filePath]
   Future<bool> putWithOneFileBase(
