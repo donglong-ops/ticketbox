@@ -50,19 +50,19 @@ class MyApp extends StatelessWidget {
     // Get.toNamed(Routes.profile);
 
     //cách 2:
-    return MaterialApp(
-      initialRoute: '/loin',
-      routes: <String, WidgetBuilder>{
-        '/home': (context) =>HomePage(), // chuyển trang:  Navigator.pushNamed(context, '/home');
-        '/login': (context) =>LoginEmailPage(),// Navigator.pushNamed(context, '/login');
-        '/loginPhone': (context) =>LoginPhonePage(), // Navigator.pushNamed(context, '/loginPhone');
-        '/phoneVerify': (context) =>VerifyPhoneScreen(),
-        '/profile': (context) =>ProfilePage(),
-        '/profileDetail': (context) =>ProfileDetailPage(),
-        '/updateProfile': (context) =>UpdateProfilePage(),
-        '/notifications': (context) =>NotificationsPage(),
-      },
-    );
+    // return MaterialApp(
+    //   initialRoute: '/loin',
+    //   routes: <String, WidgetBuilder>{
+    //     '/home': (context) =>HomePage(), // chuyển trang:  Navigator.pushNamed(context, '/home');
+    //     '/login': (context) =>LoginEmailPage(),// Navigator.pushNamed(context, '/login');
+    //     '/loginPhone': (context) =>LoginPhonePage(), // Navigator.pushNamed(context, '/loginPhone');
+    //     '/phoneVerify': (context) =>VerifyPhoneScreen(),
+    //     '/profile': (context) =>ProfilePage(),
+    //     '/profileDetail': (context) =>ProfileDetailPage(),
+    //     '/updateProfile': (context) =>UpdateProfilePage(),
+    //     '/notifications': (context) =>NotificationsPage(),
+    //   },
+    // );
     // thì chuyển trang sẽ dùng:
     //Navigator.pushNamed(context, '/loginPhone');
   }

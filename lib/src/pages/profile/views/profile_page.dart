@@ -12,7 +12,7 @@ import 'package:ticket_box/src/widgets/custom_bottom_bar.dart';
 
 class ProfilePage extends GetView<ProfileController> {
   final SharedStates sharedData = Get.find();
-  final user = FirebaseAuth.instance.currentUser!;
+  final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     final Account? userInfo = sharedData.account;
@@ -32,7 +32,7 @@ class ProfilePage extends GetView<ProfileController> {
                     CircleAvatar(radius: 10.0 * 5,
                         backgroundImage: (user.isNull)
                             ? NetworkImage('https://pngimg.com/uploads/mouth_smile/mouth_smile_PNG42.png')
-                            : NetworkImage(user.photoURL!)),
+                            : NetworkImage(user!.photoURL.toString())),
                     GestureDetector(
                       onTap: () {
                         Get.toNamed(Routes.profileDetail);
@@ -62,7 +62,7 @@ class ProfilePage extends GetView<ProfileController> {
                 ),
               ),
               SizedBox(height: 20),
-              Text( (user.isNull)? 'Username loading' : user.displayName!,
+              Text( (user.isNull)? 'Username loading' : user!.displayName.toString(),
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,

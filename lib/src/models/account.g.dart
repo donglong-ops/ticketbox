@@ -8,26 +8,40 @@ part of 'account.dart';
 
 Account _$AccountFromJson(Map<String, dynamic> json) {
   return Account(
-    accessToken: json['accessToken'] as String?,
-    refreshToken: json['refreshToken'] as String?,
-    id: json['id'] as int?,
-    name: json['name'] as String?,
-    role: json['role'] as String?,
-    imageUrl: json['imageUrl'] as String?,
-    phone: json['phone'] as String?,
+    roleId: json['roleId'] as int?,
+    userId: json['userId'] as String?,
     email: json['email'] as String?,
-    status: json['status'] as String?,
+    fullName: json['fullname'] as String?,
+    avatarUrl: json['avatarUrl'] as String?,
+    isDeleted: json['isDeleted'] as bool?,
+    createDate: json['createDate'] == null
+        ? null
+        : DateTime.parse(json['createDate'] as String),
+    modifyDate: json['modifyDate'] == null
+        ? null
+        : DateTime.parse(json['modifyDate'] as String),
+    role: json['role'] == null
+        ? null
+        : Role.fromJson(json['role'] as Map<String, dynamic>),
+    booking: json['bookings'] == null
+        ? null
+        : Booking.fromJson(json['bookings'] as Map<String, dynamic>),
+    userFcmtokens: json['userFcmtokens'] == null
+        ? null
+        : UserFcmtokens.fromJson(json['userFcmtokens'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$AccountToJson(Account instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'role': instance.role,
-      'imageUrl': instance.imageUrl,
-      'phone': instance.phone,
+      'roleId': instance.roleId,
+      'userId': instance.userId,
+      'fullName': instance.fullName,
+      'avatarUrl': instance.avatarUrl,
+      'modifyDate': instance.modifyDate,
       'email': instance.email,
-      'accessToken': instance.accessToken,
-      'refreshToken': instance.refreshToken,
-      'status': instance.status,
+      'createDate': instance.createDate,
+      'isDeleted': instance.isDeleted,
+      'role': instance.role,
+      'bookings': instance.booking,
+      'userFcmtokens': instance.userFcmtokens
     };

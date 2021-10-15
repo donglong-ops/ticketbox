@@ -70,11 +70,4 @@ class LoginEmailController extends GetxController {
     }
     BotToast.closeAllLoading();
   }
-
-  // Future<void> logOut() async {
-  //   await FirebaseAuth.instance.signOut();
-  //   await _googleSignIn!.signOut();
-  //   BotToast.showText(text: "Logout Successfully");
-  //   Get.toNamed(Routes.login);
-  // }
 }
