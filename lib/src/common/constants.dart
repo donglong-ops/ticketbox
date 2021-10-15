@@ -64,39 +64,4 @@ class AppBoxShadow {
   );
 }
 
-// class AppColors {
-//   static const Color primary = const Color(0xffFF6F66);
-//   static const Color secondary = const Color(0xffA48EAA);
-//   static const Color colorBlue = const Color(0xff64B0E7);
-//   static const List<Color> gradientColor = [
-//     Color(0xff64B0E7),
-//     Color(0xff64B0E7)
-//   ];
-//   // static const List<Color> gradientColor =  [Color(0xff775FEA), Color(0xff324CDA)];
-// }
-
-// class StorageConstants {
-//   static const floorPlanBox = "floorPlanBox";
-//   static const edgeBox = "edgeBox";
-//   static const requestUriBox = "requestUriBox";
-//   static const lastModified = "last-modified";
-//   static final Duration expireDuration = Duration(days: 3);
-//   static const dataNotModified = "Data is not modified";
-// }
-
-// class MapKey {
-//   static const int stairCase = 4;
-//   static const int elevator = 3;
-//   static const int restRoom = 10;
-//   static const int store = 1;
-//   static const double radius = 18;
-// }
-
-// class ConstImg {
-//   static const String stairCase = "assets/images/staircase.png";
-//   static const String elevator = "assets/images/elevator.png";
-//   static const String restRoom = "assets/images/toilet.png";
-//   static const String couponSaved = "assets/images/saved.svg";
-//   static const String couponExpired = "assets/images/expired.svg";
-// }
 
