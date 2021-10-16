@@ -39,8 +39,7 @@ class HomeController extends GetxController {
       }
     }
 
-    if (listSearch.length > 0 || listSearch.isEmpty) {
-      print('dữ liệu có tồn tại =)): ' + listSearch.length.toString());
+    if (listSearch.length > 0 || listSearch.isNotEmpty) {
       isSearching.value = true;
       listSearchEvents.value = listSearch;
       Timer(Duration(seconds: 1), () => isSearching.value = false);

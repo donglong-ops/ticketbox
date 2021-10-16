@@ -30,13 +30,13 @@ class HomePage extends GetView<HomeController> {
             );
           } else {
             return SingleChildScrollView(
-              child: Column(
+              child: Stack(
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: 25),
                     color: Colors.green.shade600,
                     width: screenSize.width,
-                    height: screenSize.height*0.12,
+                    height: screenSize.height*0.3,
                     child: Row(
                       children: [
                         Container(
@@ -52,7 +52,7 @@ class HomePage extends GetView<HomeController> {
                             onQueryChanged: (valueSearch) {
                               // ĐANG BỊ LỖI UI HMMMM, MONG MUỐN CHUYỂN THÀNH STACK
                               controller.searchEvents(events,valueSearch);
-                              },
+                            },
                             transition: CircularFloatingSearchBarTransition(),
                             backdropColor: Colors.black.withOpacity(0.1),
                             automaticallyImplyBackButton: false,
@@ -67,51 +67,54 @@ class HomePage extends GetView<HomeController> {
                                     if (controller.isSearching.value)
                                       return Container(
                                           padding: const EdgeInsets.only(left: 20, top: 10, bottom: 10),
-                                          child: Center(child: CircularProgressIndicator()));
-                                    if (listSearchEvent.isEmpty)
-                                      return Container(padding: const EdgeInsets.only(left: 20, top: 10, bottom: 20), child: Text("No events found!"));
-                                    int count = listSearchEvent.length > 5 ? 5 : listSearchEvent.length;
-                                    return ListView.separated(
-                                      shrinkWrap: true,
-                                      itemCount: count,
-                                      separatorBuilder: (context, index) => Divider(
-                                        indent: 15,
-                                        endIndent: 15,
-                                        height: 0,
-                                        color: Colors.black38,
-                                      ),
-                                      itemBuilder: (context, index) {
-                                        final event = listSearchEvent[index];
-                                        final img = event.imageUrl ?? '';
-                                        final title = Formatter.shorten(event.eventName);
-                                        String location = event.location ?? '';
-                                        return Container(
-                                          height: 85,
-                                          child: TextButton(
-                                            onPressed: () {},
-                                            child: ListTile(
-                                              contentPadding: const EdgeInsets.all(0),
-                                              leading: CircleAvatar(
-                                                radius: 25,
-                                                backgroundImage: NetworkImage(img),
-                                              ),
-                                              title: Text(title),
-                                              subtitle: Text(location),
-                                              trailing: OutlinedButton.icon(
-                                                onPressed: () {
-                                                  // controller.goToEventDetails(coupon);
-                                                },
-                                                icon: Icon(
-                                                  Icons.local_activity,
-                                                  size: 24,
+                                          child: Center(child: CircularProgressIndicator())
+                                      );
+                                    if (listSearchEvent.isEmpty) {
+                                      return Container(
+                                          padding: const EdgeInsets.only(left: 20, top: 10, bottom: 20),
+                                          child: Text("No events found!"));
+                                    }else {
+                                      int count = listSearchEvent.length > 5 ? 5 : listSearchEvent.length;
+                                      return ListView.separated(
+                                        shrinkWrap: true,
+                                        itemCount: count,
+                                        separatorBuilder: (context, index) =>
+                                            Divider(indent: 15, endIndent: 15, height: 0, color: Colors.black38,),
+                                        itemBuilder: (context, index) {
+                                          final event = listSearchEvent[index];
+                                          final img = event.imageUrl ?? '';
+                                          final title = Formatter.shorten(event.eventName);
+                                          String location = event.location ?? '';
+                                          return Container(
+                                            height: 85,
+                                            child: TextButton(
+                                              onPressed: () {},
+                                              child: ListTile(
+                                                contentPadding: const EdgeInsets
+                                                    .all(0),
+                                                leading: CircleAvatar(
+                                                  radius: 25,
+                                                  backgroundImage: NetworkImage(
+                                                      img),
                                                 ),
-                                                label: Text("Chi Tiết"),
+                                                title: Text(title),
+                                                subtitle: Text(location),
+                                                trailing: OutlinedButton.icon(
+                                                  onPressed: () {
+                                                    // controller.goToEventDetails(coupon);
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.local_activity,
+                                                    size: 24,
+                                                  ),
+                                                  label: Text("Chi Tiết"),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        );
-                                      },
-                                    );
+                                          );
+                                        },
+                                      );
+                                    }
                                   }),
                                 ),
                               );
@@ -136,6 +139,7 @@ class HomePage extends GetView<HomeController> {
                     ),
                   ),
                   Container(
+                    margin: EdgeInsets.only(top: screenSize.height*0.13),
                     width: screenSize.width,
                     height: screenSize.height*0.4,
                     child: Obx(() {
@@ -185,7 +189,7 @@ class HomePage extends GetView<HomeController> {
                     }),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(top: 10),
+                    margin: EdgeInsets.only(top: screenSize.height*0.53),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: Colors.grey.shade200),
@@ -223,7 +227,7 @@ class HomePage extends GetView<HomeController> {
                           margin: const EdgeInsets.symmetric(vertical: 10),
                           child: Obx(() {
                             var listTicket = controller.listEvents;
-                            int ticketCount = listTicket.length > 6 ? 6 : 3;
+                            int ticketCount = listTicket.length >= 6 ? 6 : 3;
                             return SingleChildScrollView(
                               child: Column(
                                 children: [
@@ -280,7 +284,7 @@ class HomePage extends GetView<HomeController> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 15),
+                    margin: EdgeInsets.only(top: screenSize.height*0.73),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: Colors.grey.shade200),
