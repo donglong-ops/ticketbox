@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ticket_box/src/data/api_helper.dart';
 import 'package:ticket_box/src/services/api/account_service.dart';
 import 'package:ticket_box/src/services/api/event_service.dart';
+import 'package:ticket_box/src/services/api/ticket_service.dart';
 import 'package:ticket_box/src/services/global_states/shared_states.dart';
 import 'package:ticket_box/src/widgets/custom_bottom_bar.dart';
 
@@ -33,5 +34,8 @@ class AppInit {
 
     // Calling api at event service
     Get.lazyPut<IEventService>(() => EventService(), fenix: true);
+
+    // Calling api at ticket service
+    Get.lazyPut<ITicketService>(() => TicketService(), fenix: true);
   }
 }

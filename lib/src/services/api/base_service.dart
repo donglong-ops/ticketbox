@@ -3,7 +3,6 @@ import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:get/get_connect/http/src/status/http_status.dart';
 import 'package:ticket_box/src/data/api_helper.dart';
 import 'package:ticket_box/src/data/file_upload_utils.dart';
-import 'package:ticket_box/src/models/paging.dart';
 
 
 abstract class BaseService<T> {
@@ -23,13 +22,6 @@ abstract class BaseService<T> {
     }
   }
 
-  /// Get paging instance from API with [query]
-  Future<Paging<T>> getPagingBase(Map<String, dynamic> query) async {
-    Response res = await _apiHelper.getAll(endpoint(), query: query);
-    Paging<T> paging = Paging.fromJson(res.body);
-    paging.convertToList(fromJson);
-    return paging;
-  }
 
   /// Get list instances from API with [query]
   Future<List<T>> getAllBase(Map<String, dynamic> query) async {
