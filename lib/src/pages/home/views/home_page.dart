@@ -36,8 +36,9 @@ class HomePage extends GetView<HomeController> {
                     margin: EdgeInsets.only(top: 25),
                     color: Colors.green.shade600,
                     width: screenSize.width,
-                    height: screenSize.height*0.3,
+                    height: screenSize.height*0.2,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
                           width: screenSize.width*0.85,
@@ -90,12 +91,9 @@ class HomePage extends GetView<HomeController> {
                                             child: TextButton(
                                               onPressed: () {},
                                               child: ListTile(
-                                                contentPadding: const EdgeInsets
-                                                    .all(0),
-                                                leading: CircleAvatar(
-                                                  radius: 25,
-                                                  backgroundImage: NetworkImage(
-                                                      img),
+                                                contentPadding: const EdgeInsets.all(0),
+                                                leading: CircleAvatar(radius: 25,
+                                                  backgroundImage: NetworkImage(img),
                                                 ),
                                                 title: Text(title),
                                                 subtitle: Text(location),

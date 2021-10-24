@@ -166,7 +166,6 @@ class ProfileDetailPage extends GetView<ProfileDetailController> {
                         labelStyle: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold,color: Colors.black
                         ),
-                        // floatingLabelBehavior: FloatingLabelBehavior.always,
                         hintStyle: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,

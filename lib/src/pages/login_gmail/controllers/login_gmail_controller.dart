@@ -1,13 +1,13 @@
 import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ticket_box/src/models/account.dart';
 import 'package:ticket_box/src/routes/routes.dart';
 import 'package:ticket_box/src/services/api/account_service.dart';
 import 'package:ticket_box/src/services/global_states/shared_states.dart';
+
 
 class LoginEmailController extends GetxController {
   // Share states across app
@@ -41,10 +41,8 @@ class LoginEmailController extends GetxController {
       );
 
       UserCredential result = await FirebaseAuth.instance.signInWithCredential(credential);
-      print('hello: '+ result.user.toString());
-      var createResult = null;
-      if(checkEmailExist == false) {
-        createResult = await _accountService.createAccount(
+      print('hello là dữ liệu ở firebase: '+ result.user.toString());
+      var createResult = await _accountService.createAccount(
             {
               "roleId": '2',
               "email": result.user!.email!,
@@ -55,7 +53,7 @@ class LoginEmailController extends GetxController {
               "createDate": applyDate.toString(),
               "modifyDate": applyDate.toString(),
             });
-      }
+
       if(createResult != null){
         sharedStates.account = createResult;
         BotToast.showText(text: "Đăng nhập thành công");
@@ -66,27 +64,6 @@ class LoginEmailController extends GetxController {
       BotToast.showText(text: "Đăng nhập thất bại");
     }
     BotToast.closeAllLoading();
-  }
-
-  IAccountService accountService = Get.find();
-  final listAccounts = <Account>[].obs;
-  Future<void> getAccounts() async {
-    listAccounts.value =  (await accountService.getAccounts());
-  }
-  bool checkEmailExist(String email){
-    bool result = false;
-    for(int i = 0; i < listAccounts.length; i++){
-      if(listAccounts[i].email!.compareTo(email) == 0){
-        result = true;
-      }
-    }
-    return result;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    getAccounts();
   }
 
 }

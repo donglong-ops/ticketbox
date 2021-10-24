@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +11,7 @@ import 'package:ticket_box/src/routes/routes.dart';
 import 'package:ticket_box/src/services/api/account_service.dart';
 import 'package:ticket_box/src/services/global_states/shared_states.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart';
 
 class ProfileDetailController extends GetxController {
   IAccountService _service = Get.find();
@@ -35,25 +37,27 @@ class ProfileDetailController extends GetxController {
     filePath.value = '';
     final picked = await _imagePicker.getImage(source: ImageSource.gallery);
     filePath.value = picked?.path ?? '';
+    uploadFile(File(picked!.path));
   }
 
-  void deleteImage() {
-    filePath.value = '';
-  }
+  var urlImageUpload = "".obs;
 
-  // Future uploadFile() async {
-  //   StorageReference storageReference = FirebaseStorage.instance
-  //       .ref()
-  //       .child('chats/${Path.basename(_image.path)}}');
-  //   StorageUploadTask uploadTask = storageReference.putFile(_image);
-  //   await uploadTask.onComplete;
-  //   print('File Uploaded');
-  //   storageReference.getDownloadURL().then((fileURL) {
-  //     setState(() {
-  //       _uploadedFileURL = fileURL;
-  //     });
-  //   });
-  // }
+  Future uploadFile(File file) async {
+    if (file == null) return;
+    final fileName = basename(file.path);
+    try {
+      UploadTask task = FirebaseStorage.instance.ref().child('uploads/$fileName').putFile(file);
+      if (task == null) {
+        return null;
+      };
+      final snapshot = await task.whenComplete(() {});
+      final urlDownload = await snapshot.ref.getDownloadURL();
+      urlImageUpload.value = urlDownload;
+      print('Download-Link: $urlDownload');
+    } on FirebaseException catch (e) {
+      print('lỗi: ' + e.toString());
+    }
+  }
 
   void updateProfile(int accountId) async {
     DateTime applyDate = DateTime.now();
@@ -61,15 +65,20 @@ class ProfileDetailController extends GetxController {
     BotToast.showLoading();
     userInfo = sharedData.account;
     if(profilePhone.value.isEmpty){
-      profilePhone.value = userInfo!.phone!;
+      if(userInfo!.phone == null) {
+        profilePhone.value = userInfo!.phone!;
+      }else{
+        profilePhone.value = "";
+      }
     }
     if(profileName.value.isEmpty){
       profileName.value = userInfo!.fullName!;
     }
-    print('file hinh: ' +  filePath.value);
+    if(urlImageUpload.value.isEmpty){
+      urlImageUpload.value = userInfo!.avatarUrl!;
+    }
     bool updateS = false;
-    if(filePath.value.isEmpty){
-      updateS = await _service.updateProfileV2(accountId,
+      updateS = await _service.updateProfile(accountId,
         {
           "userId": accountId.toString(),
           "roleId": '2',
@@ -77,28 +86,12 @@ class ProfileDetailController extends GetxController {
           "fullname": profileName.value,
           "phone": profilePhone.value,
           "isDeleted": 'false',
-          "avatarUrl": userInfo!.avatarUrl!,
+          "avatarUrl": urlImageUpload.value,
           "createDate": userInfo!.createDate.toString(),
           "modifyDate": applyDate.toString(),
         },
       );
-    }else {
-      updateS = await _service.updateProfile(
-          accountId,
-            {
-              "userId": accountId.toString(),
-              "roleId": '2',
-              "email": userInfo!.email!,
-              "fullname": profileName.value,
-              "phone": profilePhone.value,
-              "isDeleted": 'false',
-              "avatarUrl": filePath.value,
-              "createDate": userInfo!.createDate.toString(),
-              "modifyDate": applyDate.toString(),
-            },
-          filePath.value
-      );
-    }
+
     if (updateS) {
       BotToast.showText(
           text: "Cập nhật thành công !",

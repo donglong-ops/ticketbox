@@ -40,7 +40,8 @@ abstract class BaseService<T> {
       print(res.body);
       return fromJson(res.body);
     }
-    if (res.statusCode == HttpStatus.ok) {
+    if (res.statusCode == HttpStatus.ok || res.statusCode == HttpStatus.noContent) {
+      print(res.body);
       return fromJson(res.body);
     }
   }
@@ -72,6 +73,7 @@ abstract class BaseService<T> {
   /// Put an instance with [id] and [body]
   Future<bool> putBase(dynamic id, Map<String, dynamic> body) async {
     Response res = await _apiHelper.putOne(endpoint(), id, body);
+    print("HTTP STATUS CODE: " + res.statusCode.toString());
     if (res.statusCode == HttpStatus.noContent) {
       return true;
     }

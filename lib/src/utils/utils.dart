@@ -1,9 +1,9 @@
-import 'dart:math';
-import 'dart:ui';
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ticket_box/src/common/constants.dart';
+import 'package:path/path.dart';
 
 class Utils {
   static Image resolveImg(String? url, {double? width, BoxFit? fit}) {
@@ -39,8 +39,7 @@ class Utils {
     return AssetImage(altUrl!);
   }
 
-  static DecorationImage resolveDecoImg(String? url,
-      {BoxFit? fit = BoxFit.cover}) {
+  static DecorationImage resolveDecoImg(String? url, {BoxFit? fit = BoxFit.cover}) {
     if (url == null) {
       return DecorationImage(image: AssetImage(Constants.imageErr));
     }
@@ -51,5 +50,23 @@ class Utils {
     );
   }
 
+  // Future uploadFile(File file) async {
+  //   if (file == null) return;
+  //
+  //   final fileName = basename(file!.path);
+  //   final destination = 'files/$fileName';
+  //   try {
+  //     // task = FirebaseApi.uploadFile(destination, file!);
+  //     UploadTask task = FirebaseStorage.instance.ref(destination).putFile(file!);
+  //     if (task == null) {
+  //       print('null cmnr');
+  //     };
+  //     final snapshot = await task!.whenComplete(() {});
+  //     final urlDownload = await snapshot.ref.getDownloadURL();
+  //     print('Download-Link: $urlDownload');
+  //   } on FirebaseException catch (e) {
+  //     print('lỗi rồi nè: ' + e.toString());
+  //   }
+  // }
 
 }

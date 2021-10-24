@@ -6,8 +6,7 @@ mixin IAccountService {
   Future<Account?> getAccountById(int id);
   Future<Account?> getAccountByEmail(String email, String password);
   Future<Account?> createAccount(Map<String, String> account);
-  Future<bool>updateProfile(int id, Map<String, String> data, String filePath);
-  Future<bool> updateProfileV2(int id, Map<String, String> data);
+  Future<bool> updateProfile(int id, Map<String, String> data);
   Future<List<Account>> getAccounts();
 }
 
@@ -42,15 +41,8 @@ class AccountService extends BaseService<Account> implements IAccountService {
   }
 
   @override
-  Future<bool> updateProfile(int id, Map<String, String> data, String filePath){
-    return putBase(id,data);
-    // return putWithOneFileBase(data, filePath, id);
-  }
-
-  @override
-  Future<bool> updateProfileV2(int id, Map<String, String> data) {
-    return putBase(id,data);
-    // return putWithOneFileBase(data, "", id);
+  Future<bool> updateProfile(int id, Map<String, String> data) {
+    return putBase(id ,data);
   }
 
   @override
