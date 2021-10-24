@@ -10,7 +10,6 @@ abstract class BaseService<T> {
 
   /// Set decode function for entity
   T fromJson(Map<String, dynamic> json);
-
   /// Set api endpoint for entity
   String endpoint();
 
@@ -36,10 +35,9 @@ abstract class BaseService<T> {
   /// Post an instance with [body]
   Future<T?> postBase(Map<String, dynamic> body) async {
     Response res = await _apiHelper.postOne(endpoint(), body);
-    print("HTTP STATUS CODE: " +
-        res.statusCode.toString() +
-        "========================================");
+    print("HTTP STATUS CODE: " + res.statusCode.toString() + "  ===========");
     if (res.statusCode == HttpStatus.created) {
+      print(res.body);
       return fromJson(res.body);
     }
     if (res.statusCode == HttpStatus.ok) {
@@ -62,14 +60,9 @@ abstract class BaseService<T> {
   }
 
   /// Post an instance with [body]
-  Future<T?> postWithOneFileBase(
-      Map<String, dynamic> body,
-      String filePath,
-      ) async {
+  Future<T?> postWithOneFileBase(Map<String, dynamic> body, String filePath) async {
     Response res = await _apiHelper.postOneWithFile(
-      endpoint(),
-      body,
-      FileUploadUtils.convertToMultipart(filePath),
+      endpoint(), body, FileUploadUtils.convertToMultipart(filePath),
     );
     if (res.statusCode == HttpStatus.created) {
       return fromJson(res.body);
@@ -85,25 +78,11 @@ abstract class BaseService<T> {
     return false;
   }
 
-  // /// Put an instance with [body] and a file path [filePath]
-  // Future<T?> putWithOneFileBase(
-  //   Map<String, dynamic> body,
-  //   String filePath,
-  // ) async {
-  //   Response res = await _apiHelper.putOneWithOneFile(
-  //     endpoint(),
-  //     body,
-  //     FileUploadUtils.convertToMultipart(filePath),
-  //   );
-  //   if (res.statusCode == HttpStatus.noContent) {
-  //     return fromJson(res.body);
-  //   }
-  // }
 
   /// Put an instance with [body] and a file path [filePath]
   Future<bool> putWithOneFileBase(
       Map<String, dynamic> body, String filePath, int id,
-      [String fileName = "imageUrl"]) async {
+      [String fileName = "avatarUrl"]) async {
     if (filePath.isNotEmpty) {
       Response res = await _apiHelper.putOneWithOneFile(
           endpoint() + "/" + id.toString(),
@@ -114,8 +93,7 @@ abstract class BaseService<T> {
         return true;
       }
     } else {
-      Response res = await _apiHelper.putOneWithOneFile(
-          endpoint() + "/" + id.toString(), body, null, fileName);
+      Response res = await _apiHelper.putOneWithOneFile(endpoint() + "/" + id.toString(), body, null, fileName);
       if (res.statusCode == HttpStatus.noContent) {
         return true;
       }
@@ -129,9 +107,7 @@ abstract class BaseService<T> {
       Map<String, dynamic> body,
       List<String> filePaths,
       ) async {
-    List<MultipartFile> files = filePaths
-        .map((path) => FileUploadUtils.convertToMultipart(path))
-        .toList();
+    List<MultipartFile> files = filePaths.map((path) => FileUploadUtils.convertToMultipart(path)).toList();
     Response res = await _apiHelper.putOneWithFiles(endpoint(), body, files);
     if (res.statusCode == HttpStatus.noContent) {
       return fromJson(res.body);

@@ -24,23 +24,15 @@ class UpdateProfileController extends GetxController {
   // User login with phone
   User? user;
 
-  // password of visitor
-  final password = "".obs;
+  // email
+  final newEmail = "".obs;
 
-  // set password
-  void setPassword(String pass) {
-    password.value = pass;
+  // set email
+  void setEmail(String email) {
+    newEmail.value = email;
   }
 
-  // RePassword of visitor
-  final rePassword = "".obs;
-
-  // set rePassword
-  void setRePassword(String RePass) {
-    rePassword.value = RePass;
-  }
-
-  // userName of visitor
+  // userName
   final userName = "".obs;
 
   // set userName
@@ -48,60 +40,30 @@ class UpdateProfileController extends GetxController {
     userName.value = name;
   }
 
-  // Image of visitor
-  final image = "".obs;
-
-  // set userName
-  void setImage(String imageUrl) {
-    image.value = imageUrl;
-  }
-
-  // Show password
-  final isShowPass = true.obs;
-
-  // Change show password
-  void changeShowPass() {
-    isShowPass.value = !isShowPass.value;
-  }
-
-  // Show Repassword
-  final isRePass = true.obs;
-
-  // Change show Repassword
-  void changeShowRePass() {
-    isRePass.value = !isRePass.value;
-  }
-
-  void checkRePassword() async {
-    if (userName.value.isNotEmpty &&
-        password.value.isNotEmpty &&
-        rePassword.value.isNotEmpty &&
-        filePath.isNotEmpty) {
+  void updateUser() async {
+    DateTime applyDate = DateTime.now();
+    if (userName.value.isNotEmpty && newEmail.value.isNotEmpty && filePath.isNotEmpty) {
       BotToast.showLoading();
-       if (password.value == rePassword.value) {
-      //   int id = AuthServices.userLoggedIn.value.id!;
-      //   bool result = await accountService.updateProfile(
-      //     id,
-      //     {
-      //       "name": userName.value,
-      //       "password": password.value,
-      //     },
-      //     filePath.value,
-      //   );
-      bool result = true;
-        if (result) {
+      // chuyển image thành đường link là dc
+      var createResult = await accountService.createAccount(
+          {
+            "roleId": '2',
+            "email": newEmail.value,
+            "fullname": userName.value,
+            "phone": sharedStates.phoneLogin.value,
+            "isDeleted": 'false',
+            "avatarUrl": filePath.value,
+            "createDate": applyDate.toString(),
+            "modifyDate": applyDate.toString(),
+          });
+        if (createResult != null ) {
           BotToast.showText(
-            text: "Sign Up Success",
+            text: "Đăng ký thành công",
             duration: const Duration(seconds: 4),
           );
+          sharedStates.account = createResult;
           Get.toNamed(Routes.home);
         }
-      } else {
-        BotToast.showText(
-            text: "Your passord not match ! Please try again",
-            textStyle: TextStyle(fontSize: 16),
-            duration: const Duration(seconds: 7));
-      }
       BotToast.closeAllLoading();
     } else {
       BotToast.showText(

@@ -5,6 +5,10 @@ import 'package:ticket_box/src/services/api/base_service.dart';
 mixin IAccountService {
   Future<Account?> getAccountById(int id);
   Future<Account?> getAccountByEmail(String email, String password);
+  Future<Account?> createAccount(Map<String, String> account);
+  Future<bool>updateProfile(int id, Map<String, String> data, String filePath);
+  Future<bool> updateProfileV2(int id, Map<String, String> data);
+  Future<List<Account>> getAccounts();
 }
 
 class AccountService extends BaseService<Account> implements IAccountService {
@@ -32,6 +36,26 @@ class AccountService extends BaseService<Account> implements IAccountService {
       },
     );
   }
+  @override
+  Future<Account?> createAccount(Map<String, String> account) {
+    return postBase(account);
+  }
 
+  @override
+  Future<bool> updateProfile(int id, Map<String, String> data, String filePath){
+    return putBase(id,data);
+    // return putWithOneFileBase(data, filePath, id);
+  }
+
+  @override
+  Future<bool> updateProfileV2(int id, Map<String, String> data) {
+    return putBase(id,data);
+    // return putWithOneFileBase(data, "", id);
+  }
+
+  @override
+  Future<List<Account>> getAccounts() {
+    return getAllBase({});
+  }
 
 }

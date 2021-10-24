@@ -26,7 +26,7 @@ class Utils {
     if (url != null && url.isNotEmpty) {
       return FileImage(File(url));
     }
-    return AssetImage(altUrl!);
+    return NetworkImage(altUrl!);
   }
 
   static ImageProvider<Object> resolveNetworkImg(String? url, String? altUrl) {

@@ -7,8 +7,8 @@ part 'account.g.dart';
 
 @JsonSerializable()
 class Account {
-  final int? roleId;
-  final String? userId, fullName, avatarUrl, email;
+  final int? userId, roleId;
+  final String? fullName, avatarUrl, email, phone;
   final bool? isDeleted;
   final DateTime? createDate, modifyDate;
   final Role? role;
@@ -24,6 +24,7 @@ class Account {
     this.fullName,
     this.avatarUrl,
     this.email,
+    this.phone,
     this.role,
     this.booking,
     this.userFcmtokens,

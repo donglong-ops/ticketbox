@@ -9,8 +9,9 @@ part of 'account.dart';
 Account _$AccountFromJson(Map<String, dynamic> json) {
   return Account(
     roleId: json['roleId'] as int?,
-    userId: json['userId'] as String?,
+    userId: json['userId'] as int?,
     email: json['email'] as String?,
+    phone: json['phone'] as String?,
     fullName: json['fullname'] as String?,
     avatarUrl: json['avatarUrl'] as String?,
     isDeleted: json['isDeleted'] as bool?,
@@ -20,15 +21,15 @@ Account _$AccountFromJson(Map<String, dynamic> json) {
     modifyDate: json['modifyDate'] == null
         ? null
         : DateTime.parse(json['modifyDate'] as String),
-    role: json['role'] == null
-        ? null
-        : Role.fromJson(json['role'] as Map<String, dynamic>),
-    booking: json['bookings'] == null
-        ? null
-        : Booking.fromJson(json['bookings'] as Map<String, dynamic>),
-    userFcmtokens: json['userFcmtokens'] == null
-        ? null
-        : UserFcmtokens.fromJson(json['userFcmtokens'] as Map<String, dynamic>),
+    // role: json['role'] == null
+    //     ? null
+    //     : Role.fromJson(json['role'] as Map<String, dynamic>),
+    // booking: json['bookings'] == null
+    //     ? null
+    //     : Booking.fromJson(json['bookings'] as Map<String, dynamic>),
+    // userFcmtokens: json['userFcmtokens'] == null
+    //     ? null
+    //     : UserFcmtokens.fromJson(json['userFcmtokens'] as Map<String, dynamic>),
   );
 }
 
@@ -39,6 +40,7 @@ Map<String, dynamic> _$AccountToJson(Account instance) => <String, dynamic>{
       'avatarUrl': instance.avatarUrl,
       'modifyDate': instance.modifyDate,
       'email': instance.email,
+      'phone': instance.phone,
       'createDate': instance.createDate,
       'isDeleted': instance.isDeleted,
       'role': instance.role,

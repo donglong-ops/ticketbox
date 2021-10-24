@@ -4,12 +4,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ticket_box/src/models/account.dart';
 import 'package:ticket_box/src/routes/routes.dart';
+import 'package:ticket_box/src/services/api/account_service.dart';
 import 'package:ticket_box/src/services/global_states/shared_states.dart';
 
 class LoginEmailController extends GetxController {
   // Share states across app
   final SharedStates sharedStates = Get.find();
+  IAccountService _accountService = Get.find();
+  // User login in app
+  Account? account;
 
   GoogleSignIn? _googleSignIn;
 
@@ -22,6 +27,7 @@ class LoginEmailController extends GetxController {
   }
 
   void loginWithGoogle() async {
+    DateTime applyDate = DateTime.now();
     try {
       BotToast.showLoading();
       _googleSignIn = GoogleSignIn();
@@ -36,7 +42,22 @@ class LoginEmailController extends GetxController {
 
       UserCredential result = await FirebaseAuth.instance.signInWithCredential(credential);
       print('hello: '+ result.user.toString());
-      if (result.user != null) {
+      var createResult = null;
+      if(checkEmailExist == false) {
+        createResult = await _accountService.createAccount(
+            {
+              "roleId": '2',
+              "email": result.user!.email!,
+              "fullname": result.user!.displayName!,
+              "phone": result.user!.phoneNumber ?? 'null',
+              "isDeleted": 'false',
+              "avatarUrl": result.user!.photoURL.toString(),
+              "createDate": applyDate.toString(),
+              "modifyDate": applyDate.toString(),
+            });
+      }
+      if(createResult != null){
+        sharedStates.account = createResult;
         BotToast.showText(text: "Đăng nhập thành công");
         Get.toNamed(Routes.home);
       }
@@ -47,27 +68,25 @@ class LoginEmailController extends GetxController {
     BotToast.closeAllLoading();
   }
 
-  void checkLoginWithPhoneAndPass(String phone, String pass) {
-    try {
-      BotToast.showLoading();
-      if (phone.isNotEmpty && pass.isNotEmpty) {
-        // lưu DB and User here
-
-        BotToast.showText(
-            text: "Đăng nhập thành công",
-            textStyle: TextStyle(fontSize: 16),
-            duration: const Duration(seconds: 5));
-        Get.toNamed(Routes.home);
-      } else {
-        BotToast.showText(
-            text: "Required Information!",
-            textStyle: TextStyle(fontSize: 16),
-            duration: const Duration(seconds: 7));
-      }
-    } catch (e) {
-      log("Lỗi: " + e.toString());
-      BotToast.showText(text: "Your phone or password wrong ! Login In Failed");
-    }
-    BotToast.closeAllLoading();
+  IAccountService accountService = Get.find();
+  final listAccounts = <Account>[].obs;
+  Future<void> getAccounts() async {
+    listAccounts.value =  (await accountService.getAccounts());
   }
+  bool checkEmailExist(String email){
+    bool result = false;
+    for(int i = 0; i < listAccounts.length; i++){
+      if(listAccounts[i].email!.compareTo(email) == 0){
+        result = true;
+      }
+    }
+    return result;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getAccounts();
+  }
+
 }
