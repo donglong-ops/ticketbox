@@ -47,7 +47,7 @@ class LoginEmailController extends GetxController {
               "roleId": '2',
               "email": result.user!.email!,
               "fullname": result.user!.displayName!,
-              "phone": result.user!.phoneNumber ?? 'null',
+              "phone": (result.user!.phoneNumber!.isEmpty) ? 'null' : result.user!.phoneNumber! ,
               "isDeleted": 'false',
               "avatarUrl": result.user!.photoURL.toString(),
               "createDate": applyDate.toString(),
